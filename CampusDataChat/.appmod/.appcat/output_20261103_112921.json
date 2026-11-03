@@ -1,0 +1,588 @@
+{
+  "version": "1.0.0",
+  "producer": ".NET AppCAT CLI",
+  "metadata": {
+    "analysisStartTime": "2026-11-03T16:29:47.1003514Z",
+    "analysisEndTime": "2026-11-03T16:29:49.6571398Z",
+    "privacyMode": "Protected",
+    "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2271074",
+    "targetIds": [
+      "AppService.Windows",
+      "AppService.Linux",
+      "AKS.Linux",
+      "AKS.Windows",
+      "ACA",
+      "AppServiceContainer.Linux",
+      "AppServiceContainer.Windows",
+      "AppServiceManagedInstance.Windows"
+    ],
+    "targetDisplayNames": [
+      "Azure App Service",
+      "Azure Kubernetes Service",
+      "Azure Container Apps",
+      "Azure App Service Container",
+      "Azure App Service Managed Instance"
+    ],
+    "os": [
+      "windows",
+      "linux"
+    ]
+  },
+  "summary": {
+    "totalProjects": 2,
+    "totalIssues": 5,
+    "totalIncidents": 9,
+    "totalEffort": 25,
+    "charts": {
+      "severity": {
+        "mandatory": 0,
+        "optional": 2,
+        "potential": 7,
+        "information": 0
+      },
+      "category": {
+        "Scale": 1,
+        "Configuration": 2,
+        "Local": 2,
+        "Connection": 3,
+        "Dockerfile": 1
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "CampusDataChat.csproj",
+      "issues": 4,
+      "storyPoints": 20,
+      "properties": {
+        "appName": "CampusDataChat",
+        "frameworks": [
+          "net10.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ]
+      },
+      "incidents": [
+        {
+          "ruleId": "Scale.0001",
+          "incidentId": "e7660f25-7d5c-4538-8ea4-bf7f3fd31353",
+          "location": "CampusDataChat.csproj",
+          "locationKind": "File",
+          "snippet": "Found 35 files matching the rule:\r\n\r\nwwwroot\\css\\site.css\r\nwwwroot\\favicon.ico\r\nwwwroot\\js\\site.js\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css\r\nwwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css\r\nwwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js\r\nwwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js\r\nwwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js\r\nwwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js\r\nwwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js\r\nwwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js\r\nwwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js\r\nwwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js\r\nwwwroot\\lib\\jquery-validation\\dist\\additional-methods.js\r\nwwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js\r\nwwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js\r\nwwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js\r\nwwwroot\\lib\\jquery\\dist\\jquery.js\r\nwwwroot\\lib\\jquery\\dist\\jquery.min.js\r\nwwwroot\\lib\\jquery\\dist\\jquery.slim.js\r\nwwwroot\\lib\\jquery\\dist\\jquery.slim.min.js\r\n",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "AppService.Linux": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "AKS.Linux": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "AKS.Windows": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "ACA": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 3,
+              "severity": "optional"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 3,
+              "severity": "optional"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Configuration.0003",
+          "incidentId": "da0da3e6-2a07-444c-9502-c9493977b731",
+          "location": "appsettings.json",
+          "locationKind": "File",
+          "snippet": "Ai",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Configuration.0003",
+          "incidentId": "8eae965f-36bf-447c-92f9-f11d1059f1f3",
+          "location": "appsettings.json",
+          "locationKind": "File",
+          "snippet": "Mcp",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 1,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Local.0003",
+          "incidentId": "e65894b0-2cb8-4e86-9353-bbbc9da175f9",
+          "location": "Data\\DatabaseInitializer.cs",
+          "locationKind": "File",
+          "snippet": "System.IO.Directory",
+          "line": 11,
+          "column": 8,
+          "targets": {
+            "AppService.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Local.0003",
+          "incidentId": "5f927eac-f9e0-4766-9d72-48b2920ac772",
+          "location": "Data\\DatabasePath.cs",
+          "locationKind": "File",
+          "snippet": "System.IO.Directory",
+          "line": 16,
+          "column": 8,
+          "targets": {
+            "AppService.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Connection.0002",
+          "incidentId": "00988b6d-fb6e-4995-b48e-befd9470b1c5",
+          "location": "Properties\\launchSettings.json",
+          "locationKind": "File",
+          "snippet": "Ai_Provider",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Connection.0002",
+          "incidentId": "24c98a8e-c2be-4e2a-ab6e-6df9455dd951",
+          "location": "Properties\\launchSettings.json",
+          "locationKind": "File",
+          "snippet": "Mcp_Endpoint",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        },
+        {
+          "ruleId": "Connection.0002",
+          "incidentId": "c37a2c12-3329-47de-83a7-2a1ba03f2f3b",
+          "location": "Properties\\launchSettings.json",
+          "locationKind": "File",
+          "snippet": "Mcp_Endpoint",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppService.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AKS.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "ACA": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 3,
+              "severity": "potential"
+            }
+          },
+          "labels": []
+        }
+      ]
+    },
+    {
+      "path": ".",
+      "issues": 1,
+      "storyPoints": 5,
+      "properties": {
+        "appName": "",
+        "frameworks": [],
+        "languages": [
+          ""
+        ],
+        "tools": [
+          "MSBuild"
+        ]
+      },
+      "incidents": [
+        {
+          "ruleId": "Dockerfile.0101",
+          "incidentId": "e71f6100-4d94-4e71-9668-5dfe025a0a6b",
+          "location": ".",
+          "locationKind": "file",
+          "message": "File(s) missing",
+          "snippet": "",
+          "targets": {
+            "AppService.Windows": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "AppService.Linux": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "AKS.Linux": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "AKS.Windows": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "ACA": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "AppServiceContainer.Linux": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "AppServiceContainer.Windows": {
+              "effort": 5,
+              "severity": "optional"
+            },
+            "AppServiceManagedInstance.Windows": {
+              "effort": 5,
+              "severity": "optional"
+            }
+          },
+          "labels": []
+        }
+      ]
+    }
+  ],
+  "rules": {
+    "Scale.0001": {
+      "id": "Scale.0001",
+      "description": "Static content detected.\n\nYour current approach of serving static content directly might lead to increased costs, performance issues, maintenance challenges (requiring application redeployment for content changes), and security risks.\n\nConsider moving static content to Azure Blob Storage and adding Azure CDN.",
+      "title": "Static content detected",
+      "severity": "optional",
+      "effort": 3,
+      "links": [
+        {
+          "title": "Azure Blob Storage",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2250574"
+        },
+        {
+          "title": "Azure CDN",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2250392"
+        }
+      ],
+      "labels": []
+    },
+    "Configuration.0003": {
+      "id": "Configuration.0003",
+      "description": "Local application configuration detected. Azure App Configuration can be used as a centralized, cloud-based service for application settings that are currently stored in local configuration files. Moving this configuration to Azure App Configuration can help you externalize settings from code and deployment artifacts, centralize management across environments, and enable dynamic refresh and controlled access to configuration data.",
+      "title": "Local application configuration detected",
+      "severity": "potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "What is Azure App Configuration?",
+          "url": "https://learn.microsoft.com/azure/azure-app-configuration/overview"
+        },
+        {
+          "title": "Configuration management with Azure App Configuration",
+          "url": "https://aka.ms/appconfig/configuration-management"
+        }
+      ],
+      "labels": []
+    },
+    "Local.0003": {
+      "id": "Local.0003",
+      "description": "Your application has local or network IO operations.\n\nIf you are targeting Managed Instance on Azure App Service, move persistent I/O to storage mounts (Azure Files/UNC). Keep local writes to temp only; connect to external dependencies via private endpoints/VNet to reduce latency.\n\nIO operations outside of the application folder might not be available on Azure App Service. Review and ensure IO APIs are attempting to access paths that will be available when your app is running on App Service sandbox. If you choose the containerized hosting option, your scenario still might be broken or have scalability issues.\n\nPossible solutions:\n    1. Files that the application needs can be deployed with the application or put in Azure Storage. You can use Azure Storage File Shares as a drop-in replacement for on-premises file share.\n    2. Other services that the application depends on might need to be migrated to Azure, this way you will get the benefit of lower latency in the cloud.\n    3. If your application needs to depend on services that run on-premise, you can connect your Azure and local networks with ExpressRoute, Hybrid Connections, or VPN solutions.",
+      "title": "Local or network IO operations detected",
+      "severity": "potential",
+      "effort": 3,
+      "links": [
+        {
+          "title": "[Managed Instance] Storage mounts",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2346952"
+        },
+        {
+          "title": "Azure file share",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2242591"
+        },
+        {
+          "title": "ExpressRoute",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2250577"
+        },
+        {
+          "title": "Hybrid Connections",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2242588"
+        },
+        {
+          "title": "Connect an on-prem network",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2242591"
+        },
+        {
+          "title": "Design to scale out",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2251007"
+        }
+      ],
+      "labels": []
+    },
+    "Connection.0002": {
+      "id": "Connection.0002",
+      "description": "Your application depends on environment variables which may also need to be set in the Azure environment it is deployed to.\n\nEnsure you have a plan for setting those variables. Depending on the Azure solution you have chosen, there are different ways you can work with environment variables:\n    - For Azure App Service use Azure App Service environment variables (see a link below).\n    - For Azure Container App (ACA) or Azure Kubernetes Service (AKS) you can set environment variables in container instances (see link below).\n\nAlternatively, you can use Azure services that can share settings between application such as Azure App Configuration and Azure Key Vault.",
+      "title": "Environment variables dependency detected",
+      "severity": "potential",
+      "effort": 3,
+      "links": [
+        {
+          "title": "Environment variables and app settings in Azure App Service",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2251598"
+        },
+        {
+          "title": "Set environment variables in container",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2251541"
+        },
+        {
+          "title": "Azure Key Vault",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2251612"
+        },
+        {
+          "title": "Azure App Configuration",
+          "url": "https://go.microsoft.com/fwlink/?LinkID=2251640"
+        }
+      ],
+      "labels": []
+    },
+    "Dockerfile.0101": {
+      "id": "Dockerfile.0101",
+      "description": "Ensure Dockerfile exists in the repository",
+      "title": "Dockerfile Missing",
+      "severity": "optional",
+      "effort": 5,
+      "links": [
+        {
+          "title": "docker",
+          "url": "https://docker.com"
+        }
+      ],
+      "labels": [
+        "domain=cloud-readiness",
+        "category=docker-containerization"
+      ]
+    }
+  }
+}

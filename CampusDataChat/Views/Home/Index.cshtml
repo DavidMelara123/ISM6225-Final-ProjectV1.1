@@ -1,0 +1,21 @@
+﻿@{
+ViewData["Title"] = "Architecture";
+}
+<section class="hero">
+<span class="eyebrow">Reference application</span>
+<h1>Ask business questions. Get answers grounded in SQLite.</h1>
+<p>This single ASP.NET Core MVC app hosts a browser chat interface and a stateless HTTP MCP server. Four controlled MCP tools query a seeded course
+database.</p>
+<a class="button" asp-controller="Chat" asp-action="Index">Open the chatbot</a>
+</section>
+<section class="flow" aria-label="Application data flow">
+<article><strong>1</strong><h2>MVC chat</h2><p>Validates the question and keeps a short session history.</p></article>
+<article><strong>2</strong><h2>MCP client</h2><p>Discovers the server's tools over streamable HTTP.</p></article>
+<article><strong>3</strong><h2>MCP tools</h2><p>Expose only approved, parameterized data operations.</p></article>
+<article><strong>4</strong><h2>SQLite</h2><p>Stores eight sample courses in a persistent file.</p></article>
+</section>
+<section class="note">
+<h2>Two chat modes</h2>
+<p><strong>Guided demo</strong> works without an API key and shows the raw MCP result. <strong>OpenAI mode</strong> lets a model choose the
+same tools and explain their results in natural language. Neither mode sends arbitrary SQL from a user to the database.</p>
+</section>
