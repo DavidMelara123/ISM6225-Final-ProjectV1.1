@@ -1,0 +1,250 @@
+:root {
+    --ink: #14213d;
+    --muted: #5b6475;
+    --paper: #f7f8fb;
+    --card: #ffffff;
+    --accent: #5b4bdb;
+    --accent-soft: #ece9ff;
+    --line: #dfe3eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+}
+
+a {
+    color: inherit;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem max(5vw, 1.25rem);
+    background: var(--card);
+    border- bottom: 1px solid var(--line);
+}
+
+.brand {
+    font-weight: 800;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    gap: 1.2rem;
+}
+
+    nav a {
+        color: var(--muted);
+        text-decoration: none;
+    }
+
+.page-shell {
+    width: min(1100px, 92vw);
+    margin: 0 auto;
+    padding: 3.5rem 0;
+}
+
+.hero {
+    max-width: 760px;
+    padding: 2rem 0 3rem;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: .6rem;
+    color: var(--accent);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2.2rem, 5vw, 4.4rem);
+    line-height: 1.03;
+    letter-spacing: -.04em;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+p {
+    line-height: 1.65;
+}
+
+.button {
+    display: inline-block;
+    border: 0;
+    border-radius: .65rem;
+    padding: .8rem 1.1rem;
+    color: white;
+    background: var(--accent);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+    .flow article, .note, aside {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        padding: 1.25rem;
+    }
+
+    .flow strong {
+        display: grid;
+        width: 2rem;
+        height: 2rem;
+        place-items: center;
+        margin-bottom: 1rem;
+        border-radius: 50%;
+        color: var(--accent);
+        background: var(--accent-soft);
+    }
+
+    .flow p {
+        color: var(--muted);
+    }
+
+.note {
+    margin-top: 1rem;
+}
+
+.chat-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.transcript {
+    min-height: 250px;
+    margin: 2rem 0 1rem;
+    display: grid;
+    gap: .8rem;
+}
+
+.empty-state {
+    display: grid;
+    place-items: center;
+    min-height: 220px;
+    color: var(--muted);
+    border: 1px dashed var(--line);
+    border-radius: 1rem;
+}
+
+.message {
+    max-width: 88%;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+}
+
+    .message.user {
+        margin-left: auto;
+        background: var(--accent-soft);
+        border-color: transparent;
+    }
+
+    .message pre {
+        margin: .45rem 0 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font: inherit;
+        line-height: 1.5;
+    }
+
+.ask-form {
+    display: grid;
+    gap: .6rem;
+}
+
+    .ask-form label {
+        font-weight: 700;
+    }
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    border: 1px solid var(--line);
+    border-radius: .75rem;
+    padding: .9rem;
+    font: inherit;
+}
+
+.validation {
+    color: #a52424;
+}
+
+aside {
+    position: sticky;
+    top: 1rem;
+}
+    aside ul {
+        padding-left: 1.2rem;
+        line-height: 1.8;
+    }
+
+code {
+    font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.link-button {
+    border: 0;
+    padding: 0;
+    color: var(--accent);
+    background: transparent;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+footer {
+    padding: 2rem max(5vw, 1.25rem);
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+}
+
+@media (max-width: 760px) {
+    .flow, .chat-layout {
+        grid-template-columns: 1fr;
+    }
+
+    aside {
+        position: static;
+    }
+
+    .site-header {
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: .35rem;
+    }
+}
