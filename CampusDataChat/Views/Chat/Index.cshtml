@@ -1,0 +1,42 @@
+﻿@model ChatViewModel
+@{
+ViewData["Title"] = "Chat";
+}
+<div class="chat-layout">
+<section>
+<span class="eyebrow">@Model.ProviderLabel</span>
+<h1>Course data assistant</h1>
+<p class="muted">Try “Which three courses have the highest enrollment?”, “Tell me about AI-601,” or “Show online courses.”</p>
+<div class="transcript" aria-live="polite">
+@if (Model.Turns.Count == 0)
+{
+<div class="empty-state">Your conversation will appear here.</div>
+}
+@foreach (var turn in Model.Turns)
+{
+<article class="message @(turn.Role == "You" ? "user" : "assistant")">
+<strong>@turn.Role</strong>
+<pre>@turn.Text</pre>
+                </article>
+            }
+        </div>
+        <form asp-action="Ask" method="post" class="ask-form">
+            <label asp-for="Question"></label>
+            <textarea asp-for="Question" rows="3" maxlength="500" placeholder="Ask a question grounded in the course database..."></textarea>
+            <span asp-validation-for="Question" class="validation"></span>
+            <button class="button" type="submit">Ask</button>
+        </form>
+    </section>
+    <aside>
+        <h2>Available MCP tools</h2>
+        <ul>
+            <li><code>search_courses</code></li>
+            <li><code>get_course_by_code</code></li>
+            <li><code>top_courses_by_enrollment</code></li>
+            <li><code>summarize_enrollment</code></li>
+        </ul>
+        <form asp-action="Clear" method="post">
+            <button class="link-button" type="submit">Clear conversation</button>
+        </form>
+    </aside>
+</div>
