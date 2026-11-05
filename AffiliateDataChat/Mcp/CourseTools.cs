@@ -1,9 +1,9 @@
-﻿using CampusDataChat.Data;
+using AffiliateDataChat.Data;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text.Json;
-namespace CampusDataChat.Mcp;
+namespace AffiliateDataChat.Mcp;
 
 [McpServerToolType]
 public sealed class CourseTools(SqliteCourseRepository repository)

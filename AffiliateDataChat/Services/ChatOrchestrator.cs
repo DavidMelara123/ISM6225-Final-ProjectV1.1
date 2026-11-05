@@ -1,9 +1,9 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
 using ModelContextProtocol.Protocol;
 using OpenAI;
-namespace CampusDataChat.Services;
+namespace AffiliateDataChat.Services;
 
 public sealed partial class ChatOrchestrator(IConfiguration configuration, ILogger<ChatOrchestrator> logger)
 {

@@ -1,5 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
-namespace CampusDataChat.Data;
+using Microsoft.Data.Sqlite;
+namespace AffiliateDataChat.Data;
 
 public static class DatabaseInitializer
 {

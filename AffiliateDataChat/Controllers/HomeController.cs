@@ -1,8 +1,8 @@
-using CampusDataChat.Models;
+using AffiliateDataChat.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CampusDataChat.Controllers
+namespace AffiliateDataChat.Controllers
 {
     public class HomeController : Controller
     {

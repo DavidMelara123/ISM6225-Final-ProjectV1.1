@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-namespace CampusDataChat.Models;
+using System.ComponentModel.DataAnnotations;
+namespace AffiliateDataChat.Models;
 
 public sealed class ChatViewModel
 {

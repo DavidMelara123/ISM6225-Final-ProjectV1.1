@@ -1,6 +1,6 @@
-﻿using CampusDataChat.Models;
+using AffiliateDataChat.Models;
 using Microsoft.Data.Sqlite;
-namespace CampusDataChat.Data;
+namespace AffiliateDataChat.Data;
 
 public sealed class SqliteCourseRepository
 {

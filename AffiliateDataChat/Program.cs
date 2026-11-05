@@ -1,5 +1,5 @@
-using CampusDataChat.Data;
-using CampusDataChat.Services;
+using AffiliateDataChat.Data;
+using AffiliateDataChat.Services;
 using ModelContextProtocol.AspNetCore;
 using ModelContextProtocol.Server;
 var builder = WebApplication.CreateBuilder(args);

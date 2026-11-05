@@ -1,8 +1,8 @@
-﻿using System.Text.Json;
-using CampusDataChat.Models;
-using CampusDataChat.Services;
+using System.Text.Json;
+using AffiliateDataChat.Models;
+using AffiliateDataChat.Services;
 using Microsoft.AspNetCore.Mvc;
-namespace CampusDataChat.Controllers;
+namespace AffiliateDataChat.Controllers;
 
 public sealed class ChatController(ChatOrchestrator orchestrator, ILogger<ChatController> logger) : Controller
 {

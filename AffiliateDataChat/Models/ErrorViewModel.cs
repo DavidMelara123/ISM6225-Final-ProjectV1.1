@@ -1,4 +1,4 @@
-namespace CampusDataChat.Models
+namespace AffiliateDataChat.Models
 {
     public class ErrorViewModel
     {
