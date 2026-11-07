@@ -1,0 +1,15 @@
+@model StatusPageViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="status-page">
+    <p class="status-code" aria-hidden="true">@Model.StatusCode</p>
+    <h1 class="h3">@Model.Title</h1>
+    <p class="text-muted">@Model.Message</p>
+    <a class="btn btn-primary" asp-controller="Chat" asp-action="Index">Back to chat</a>
+    @if (!string.IsNullOrEmpty(Model.RequestId))
+    {
+        <p class="small text-muted mt-4 mb-0">Reference: <code>@Model.RequestId</code></p>
+    }
+</div>
