@@ -12,6 +12,7 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 builder.Services.AddSingleton<SqliteCourseRepository>();
+builder.Services.AddSingleton<SqliteAffiliateRepository>();
 builder.Services.AddScoped<ChatOrchestrator>();
 builder.Services.AddMcpServer()
 .WithHttpTransport(options =>
