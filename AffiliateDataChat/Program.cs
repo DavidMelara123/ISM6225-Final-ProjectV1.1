@@ -46,6 +46,7 @@ builder.Services.AddScoped<IConversationStore, SessionConversationStore>();
 
 // ---- Data, chatbot and MCP server (Morgan / Ignatious) ------------------------------
 builder.Services.AddSingleton<SqliteCourseRepository>();
+builder.Services.AddSingleton<SqliteAffiliateRepository>();
 builder.Services.AddScoped<ChatOrchestrator>();
 // The MVC layer talks to IChatbotService; this adapter connects it to ChatOrchestrator.
 builder.Services.AddScoped<IChatbotService, OrchestratorChatbotService>();
