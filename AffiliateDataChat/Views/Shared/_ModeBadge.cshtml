@@ -1,0 +1,9 @@
+@model (ChatMode Mode, string? ModelName)
+@{
+    var (css, label) = Model.Mode switch
+    {
+        ChatMode.Model => ("mode-model", string.IsNullOrWhiteSpace(Model.ModelName) ? "AI model" : $"AI model · {Model.ModelName}"),
+        _ => ("mode-fallback", "Fallback mode (no AI model)")
+    };
+}
+<span class="mode-badge @css">@label</span>

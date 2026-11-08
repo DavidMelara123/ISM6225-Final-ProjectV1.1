@@ -1,0 +1,136 @@
+@model AboutViewModel
+@{
+    ViewData["Title"] = "About & Architecture";
+}
+
+<div class="about">
+    <header class="mb-4">
+        <h1 class="h3">About &amp; Architecture</h1>
+        <p class="lead mb-0">
+            The Affiliate Campaign Assistant helps marketing managers decide which affiliate campaigns to repeat
+            and which affiliates need more support. It answers only from verified database results, retrieved through four MCP tools.
+        </p>
+    </header>
+
+    <section class="mb-5" aria-labelledby="flowHeading">
+        <h2 id="flowHeading" class="h5">How a question is answered</h2>
+        <ol class="arch-flow">
+            <li class="arch-step">
+                <span class="arch-title">Browser</span>
+                <span class="arch-detail">Chat page sends the question with an anti-forgery token</span>
+            </li>
+            <li class="arch-step">
+                <span class="arch-title">ASP.NET Core MVC</span>
+                <span class="arch-detail">ChatController validates input, keeps conversation history, shows evidence</span>
+            </li>
+            <li class="arch-step">
+                <span class="arch-title">Chatbot service</span>
+                <span class="arch-detail">System prompt + model chooses tools; fallback rules if the model is unavailable</span>
+            </li>
+            <li class="arch-step">
+                <span class="arch-title">MCP client → HTTP MCP server</span>
+                <span class="arch-detail">Tools discovered at runtime; parameters validated; output limited</span>
+            </li>
+            <li class="arch-step">
+                <span class="arch-title">Repository</span>
+                <span class="arch-detail">Parameterized C# queries — user text is never pasted into SQL</span>
+            </li>
+            <li class="arch-step">
+                <span class="arch-title">SQLite</span>
+                <span class="arch-detail">Synthetic affiliates, campaigns, participation and sales</span>
+            </li>
+        </ol>
+        <p class="small text-muted">The answer travels back the same way, with each tool call listed under it as evidence.</p>
+    </section>
+
+    <section class="mb-5" aria-labelledby="statusHeading">
+        <h2 id="statusHeading" class="h5">Live status</h2>
+        <dl class="status-grid">
+            <dt>Mode</dt>
+            <dd><partial name="_ModeBadge" model="(Model.Status.Mode, Model.Status.ModelName)" /></dd>
+            <dt>Model</dt>
+            <dd>@(Model.Status.ModelName ?? "None configured")</dd>
+            <dt>Tools discovered</dt>
+            <dd>@Model.Status.DiscoveredTools.Count of @Model.PlannedTools.Count planned</dd>
+            @if (!string.IsNullOrWhiteSpace(Model.Status.StatusMessage))
+            {
+                <dt>Note</dt>
+                <dd>@Model.Status.StatusMessage</dd>
+            }
+        </dl>
+
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr><th scope="col">Tool</th><th scope="col">Purpose</th><th scope="col">Example question</th><th scope="col">Discovered</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var tool in Model.PlannedTools)
+                    {
+                        var found = Model.Status.DiscoveredTools.Contains(tool.Name, StringComparer.OrdinalIgnoreCase);
+                        <tr>
+                            <td><code>@tool.Name</code></td>
+                            <td>@tool.Purpose</td>
+                            <td class="small">@tool.ExampleQuestion</td>
+                            <td>
+                                @if (found)
+                                {
+                                    <span class="badge bg-success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Not found</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="mb-5" aria-labelledby="dataHeading">
+        <h2 id="dataHeading" class="h5">Data and calculation rules</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h3 class="h6">Tables</h3>
+                <ul class="small">
+                    <li><strong>Affiliates</strong> — affiliate profiles</li>
+                    <li><strong>Campaigns</strong> — campaign names and dates</li>
+                    <li><strong>AffiliateCampaigns</strong> — who took part in each campaign (one row per pair), with commission rate</li>
+                    <li><strong>AffiliateSales</strong> — sales attributed to that participation</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3 class="h6">Definitions</h3>
+                <ul class="small">
+                    <li><strong>Net revenue</strong> = gross revenue − discount − refund</li>
+                    <li><strong>Revenue after commission</strong> = net revenue − commission expense (not profit: other costs are excluded)</li>
+                    <li><strong>Participant without sales</strong> = in AffiliateCampaigns with no sales for that campaign</li>
+                    <li>A fully refunded sale still counts as a sale; zero sales and zero net revenue are different things.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5" aria-labelledby="securityHeading">
+        <h2 id="securityHeading" class="h5">Safeguards in the interface</h2>
+        <ul class="small">
+            <li>Questions must be 3–500 characters; checked in the browser and again on the server.</li>
+            <li>Every form post carries an anti-forgery token; posts without one are rejected.</li>
+            <li>Answers are displayed as plain text, so neither a user nor the model can inject HTML or scripts.</li>
+            <li>Errors and timeouts show a plain message; technical details go to the server log only.</li>
+            <li>Up to 10 questions per minute per visitor, to protect the model budget.</li>
+            <li>Conversation history is kept per browser session and can be cleared at any time.</li>
+        </ul>
+    </section>
+
+    <section aria-labelledby="limitsHeading">
+        <h2 id="limitsHeading" class="h5">Limitations and responsible use</h2>
+        <ul class="small">
+            <li>All data is synthetic. Rankings describe this data; they do not prove why an affiliate performed well or poorly.</li>
+            <li>The assistant can only answer what the four tools cover. Other questions get a "can't answer" response rather than a guess.</li>
+            <li>Conversation history is lost when the app restarts (the database itself persists).</li>
+        </ul>
+    </section>
+</div>
