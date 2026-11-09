@@ -16,3 +16,7 @@ public record CampaignSummary(
 public record AffiliateRank(
     int Rank, int AffiliateId, string Name, int SalesCount,
     decimal NetRevenue, decimal CommissionExpense, decimal RevenueAfterCommission);
+
+public record CampaignRank(
+    int Rank, int CampaignId, string CampaignName, int SalesCount,
+    decimal NetRevenue, decimal CommissionExpense, decimal RevenueAfterCommission);

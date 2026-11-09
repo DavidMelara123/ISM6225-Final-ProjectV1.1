@@ -105,6 +105,35 @@ GROUP BY c.CampaignId;
         return rows.SingleOrDefault();
     }
 
+    // Tool: rank_campaigns. Ranks campaigns by sales count (ties: lower CampaignId first).
+    public async Task<IReadOnlyList<CampaignRank>> RankCampaignsAsync(
+        int limit, CancellationToken cancellationToken)
+    {
+        await using var connection = await OpenAsync(cancellationToken);
+        var command = connection.CreateCommand();
+        command.CommandText = """
+SELECT c.CampaignId, c.CampaignName, COUNT(s.SaleId),
+COALESCE(SUM(s.GrossRevenueCents - s.DiscountCents - s.RefundCents), 0),
+COALESCE(SUM(s.CommissionCents), 0)
+FROM Campaigns c
+LEFT JOIN AffiliateCampaigns ac ON ac.CampaignId = c.CampaignId
+LEFT JOIN AffiliateSales s ON s.AffiliateCampaignId = ac.AffiliateCampaignId
+GROUP BY c.CampaignId, c.CampaignName
+ORDER BY COUNT(s.SaleId) DESC, c.CampaignId
+LIMIT $limit;
+""";
+        command.Parameters.AddWithValue("$limit", Math.Clamp(limit, 1, MaxRows));
+        var rows = await ReadAsync(command, r =>
+        {
+            var net = Money(r.GetInt64(3));
+            var commission = Money(r.GetInt64(4));
+            return (Id: r.GetInt32(0), Name: r.GetString(1), Sales: r.GetInt32(2),
+                Net: net, Commission: commission);
+        }, cancellationToken);
+        return rows.Select((x, i) => new CampaignRank(
+            i + 1, x.Id, x.Name, x.Sales, x.Net, x.Commission, x.Net - x.Commission)).ToList();
+    }
+
     // Tool: rank_affiliates. Ranks affiliates that have at least one sale by net revenue (ties: lower AffiliateId first).
     public async Task<IReadOnlyList<AffiliateRank>> RankAffiliatesAsync(
         int? campaignId, DateOnly? from, DateOnly? to, int limit, CancellationToken cancellationToken)
