@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_PATH: AffilliateDataChat/AffiliateDataChat.csproj
+  PROJECT_PATH: AffiliateDataChat/AffiliateDataChat.csproj
 
 jobs:
   build:
