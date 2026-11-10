@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 namespace AffiliateDataChat.Data;
 
 /// <summary>
-/// Read-only queries behind the four MCP tools. Every user-supplied value is bound as a SQLite
+/// Read-only queries behind the MCP tools. Every user-supplied value is bound as a SQLite
 /// parameter ($name); nothing is concatenated into SQL. Money is stored as cents and returned as decimal.
 /// </summary>
 public sealed class SqliteAffiliateRepository
@@ -43,6 +43,50 @@ WHERE a.AffiliateId = $id;
             r.GetInt32(0), r.GetString(1), r.GetString(2), r.GetString(3),
             r.GetInt32(4), r.GetInt32(5), Money(r.GetInt64(6)), Money(r.GetInt64(7))), cancellationToken);
         return rows.SingleOrDefault();
+    }
+
+    public async Task<IReadOnlyList<CampaignInfo>> ListCampaignsAsync(CancellationToken cancellationToken)
+    {
+        await using var connection = await OpenAsync(cancellationToken);
+        var command = connection.CreateCommand();
+        command.CommandText = """
+SELECT c.CampaignId, c.CampaignName, c.StartDate, c.EndDate,
+COUNT(DISTINCT ac.AffiliateCampaignId), COUNT(s.SaleId)
+FROM Campaigns c
+LEFT JOIN AffiliateCampaigns ac ON ac.CampaignId = c.CampaignId
+LEFT JOIN AffiliateSales s ON s.AffiliateCampaignId = ac.AffiliateCampaignId
+GROUP BY c.CampaignId, c.CampaignName, c.StartDate, c.EndDate
+ORDER BY c.CampaignId
+LIMIT $limit;
+""";
+        command.Parameters.AddWithValue("$limit", MaxRows);
+        return await ReadAsync(command, r => new CampaignInfo(
+            r.GetInt32(0), r.GetString(1), r.GetString(2), r.GetString(3),
+            r.GetInt32(4), r.GetInt32(5)), cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<AffiliateCampaignPerformance>> GetAffiliateCampaignHistoryAsync(
+        int affiliateId, CancellationToken cancellationToken)
+    {
+        await using var connection = await OpenAsync(cancellationToken);
+        var command = connection.CreateCommand();
+        command.CommandText = """
+SELECT c.CampaignId, c.CampaignName, c.StartDate, c.EndDate, ac.CommissionRate,
+COUNT(s.SaleId), COALESCE(SUM(s.GrossRevenueCents - s.DiscountCents - s.RefundCents), 0),
+COALESCE(SUM(s.CommissionCents), 0)
+FROM AffiliateCampaigns ac
+JOIN Campaigns c ON c.CampaignId = ac.CampaignId
+LEFT JOIN AffiliateSales s ON s.AffiliateCampaignId = ac.AffiliateCampaignId
+WHERE ac.AffiliateId = $affiliateId
+GROUP BY c.CampaignId, c.CampaignName, c.StartDate, c.EndDate, ac.CommissionRate
+ORDER BY c.CampaignId
+LIMIT $limit;
+""";
+        command.Parameters.AddWithValue("$affiliateId", affiliateId);
+        command.Parameters.AddWithValue("$limit", MaxRows);
+        return await ReadAsync(command, r => new AffiliateCampaignPerformance(
+            r.GetInt32(0), r.GetString(1), r.GetString(2), r.GetString(3), r.GetDouble(4),
+            r.GetInt32(5), Money(r.GetInt64(6)), Money(r.GetInt64(7))), cancellationToken);
     }
 
     // Tool: find_affiliates_without_sales. Participants with zero AffiliateSales rows, optionally for one campaign (id or name text).

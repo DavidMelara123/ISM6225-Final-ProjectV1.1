@@ -9,7 +9,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "Mcp_Endpoint": "http://localhost:5080/mcp",
-        "Ai_Provider": "Demo"
+        "Ai__Provider": "Demo"
       }
     },
     "https": {
@@ -20,7 +20,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "Mcp_Endpoint": "http://localhost:7080/mcp",
-        "Ai_Provider": "Demo"
+        "Ai__Provider": "Demo"
       }
     }
   }

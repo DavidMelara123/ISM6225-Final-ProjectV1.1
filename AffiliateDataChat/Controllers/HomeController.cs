@@ -9,7 +9,11 @@ public sealed class HomeController(IChatbotService chatbot, ILogger<HomeControll
 {
     private static readonly PlannedTool[] PlannedTools =
     [
+        new("list_campaigns", "Available campaigns with dates, participation and sales counts.",
+            "Which campaigns are available?"),
         new("lookup_affiliate", "Exact lookup of an affiliate by ID.", "Show me affiliate 104."),
+        new("get_affiliate_campaign_history", "Sales and commission performance for an affiliate across campaigns.",
+            "Show affiliate 104's campaign history."),
         new("find_affiliates_without_sales", "Campaign participants with no recorded sales, optionally for one campaign.",
             "Which affiliates participated in the summer campaign but made no sales?"),
         new("summarize_campaign", "Campaign revenue, commission expense and sales counts.",

@@ -4,7 +4,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+<<<<<<< HEAD
     <UserSecretsId>a7758ac5-6eac-4c5a-88e0-aed2f58aa3fe</UserSecretsId>
+=======
+    <UserSecretsId>7abe5308-5e8d-4656-a8c1-e5f62908e2d6</UserSecretsId>
+>>>>>>> e6f976d (fixed chatbot not answering different questions)
   </PropertyGroup>
 
   <ItemGroup>

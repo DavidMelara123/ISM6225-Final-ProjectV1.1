@@ -13,6 +13,14 @@ public record CampaignSummary(
     decimal GrossRevenue, decimal DiscountAmount, decimal RefundAmount,
     decimal NetRevenue, decimal CommissionExpense, decimal RevenueAfterCommission);
 
+public record CampaignInfo(
+    int CampaignId, string CampaignName, string StartDate, string EndDate,
+    int ParticipantCount, int SalesCount);
+
+public record AffiliateCampaignPerformance(
+    int CampaignId, string CampaignName, string StartDate, string EndDate,
+    double CommissionRate, int SalesCount, decimal NetRevenue, decimal CommissionExpense);
+
 public record AffiliateRank(
     int Rank, int AffiliateId, string Name, int SalesCount,
     decimal NetRevenue, decimal CommissionExpense, decimal RevenueAfterCommission);
