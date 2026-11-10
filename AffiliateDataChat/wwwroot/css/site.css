@@ -125,7 +125,7 @@ a { color: var(--brand); }
 .tool-evidence summary { cursor: pointer; color: var(--muted); font-weight: 500; }
 .tool-evidence summary:hover { color: var(--ink); }
 .evidence-table { font-size: .8rem; }
-.evidence-table code.args { white-space: pre-wrap; overflow-wrap: anywhere; }
+.evidence-value { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* ---- Input form ---- */
 .chat-form { padding: 1rem 1.25rem; border-top: 1px solid var(--line); background: var(--surface); }

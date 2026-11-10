@@ -87,8 +87,11 @@ public sealed class ChatOrchestrator(
         var systemPrompt = configuration["Ai:SystemPrompt"]
             ?? "You are a concise affiliate and campaign-data assistant. Answer the user's exact question directly in no more than 2 short sentences. " +
             "Use MCP tools for factual answers. Use affiliate_lookup for one affiliate, campaign_participants_without_sales for participants without sales, " +
-            "campaign_summary for one campaign's totals, affiliate_ranking for affiliate rankings, and campaign_ranking for campaign sales rankings. " +
-            "Rank affiliates by net revenue, not revenue after commission. For a singular 'which affiliate' or 'who generated the most' question, request limit 1. " +
+            "campaign_summary for one campaign's totals, affiliate_ranking for affiliate rankings by net revenue, affiliate_sales_ranking for affiliate rankings by recorded sale count, and campaign_ranking for campaign sales rankings. " +
+            "For requests to rank campaigns or show the top campaigns by sales count, use campaign_ranking and honor the requested top-N limit. " +
+            "For requests asking which affiliate made the most sales, use affiliate_sales_ranking with limit 1; honor explicit top-N requests for sales rankings. " +
+            "Rank affiliates by net revenue, not revenue after commission. For a singular 'which affiliate' or 'who generated the most' net revenue question, request limit 1. " +
+            "Never return raw JSON. Present tool results in readable sentences or numbered lists, preserving the returned values. " +
             "Never invent rows or run arbitrary SQL; state briefly when no result is found.";
 
         var messages = new List<ChatMessage>
@@ -135,10 +138,25 @@ public sealed class ChatOrchestrator(
         }
         else if (lower.Contains("campaign") &&
                  (lower.Contains("most sales") || lower.Contains("highest sales") ||
-                  lower.Contains("most number of sales")))
+                  lower.Contains("most number of sales") || lower.Contains("sales count") ||
+                  ((lower.Contains("top") || lower.Contains("rank")) && lower.Contains("sales"))))
         {
             tool = FindTool(tools, "campaign_ranking");
             arguments = new Dictionary<string, object?> { ["limit"] = ExtractCount(question, 1) };
+        }
+        else if (lower.Contains("affiliate") &&
+                 (lower.Contains("most sales") || lower.Contains("highest sales") ||
+                  lower.Contains("sales count") ||
+                  ((lower.Contains("top") || lower.Contains("rank")) && lower.Contains("sales"))))
+        {
+            tool = FindTool(tools, "affiliate_sales_ranking");
+            var rankingArguments = new Dictionary<string, object?>
+            {
+                ["limit"] = ExtractCount(question, 1)
+            };
+            if (campaignId.Success)
+                rankingArguments["campaignId"] = int.Parse(campaignId.Groups[1].Value);
+            arguments = rankingArguments;
         }
         else if (lower.Contains("affiliate") &&
                  (lower.Contains("rank") || lower.Contains("top") || lower.Contains("most net revenue") ||
@@ -199,12 +217,13 @@ public sealed class ChatOrchestrator(
         var explanation = ExplainResult(tool.Name, text, arguments);
         var explanationSection = string.IsNullOrEmpty(explanation) ? string.Empty : $"{explanation}\n\n";
         return new OrchestrationResult(
-            $"Guided demo used the MCP tool `{tool.Name}`.\n\n{explanationSection}{text}\n\nConfigure an AI model to receive a natural-language interpretation.",
+            $"Guided demo mode used the {tool.Name} tool.\n\n{explanationSection}{ToolOutputFormatter.Format(text)}\n\n" +
+            "Configure an AI model to receive a conversational interpretation.",
             [
                 new ToolInvocation(
                     tool.Name,
                     JsonSerializer.Serialize(arguments),
-                    text.Length > 500 ? text[..500] : text,
+                    text,
                     result.IsError != true,
                     (long)Stopwatch.GetElapsedTime(started).TotalMilliseconds)
             ]);
@@ -284,7 +303,6 @@ public sealed class ChatOrchestrator(
 
     private static string SummarizeResult(object? result)
     {
-        var text = result is string value ? value : JsonSerializer.Serialize(result);
-        return text.Length > 500 ? text[..500] : text;
+        return result is string value ? value : JsonSerializer.Serialize(result);
     }
 }

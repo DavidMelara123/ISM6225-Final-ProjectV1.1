@@ -211,6 +211,33 @@ LIMIT $limit;
         return rows.Select((x, i) => new AffiliateRank(i + 1, x.Id, x.Name, x.Sales, x.Net, x.Commission, x.Net - x.Commission)).ToList();
     }
 
+    // Ranks affiliates by recorded sale count (ties: lower AffiliateId first).
+    public async Task<IReadOnlyList<AffiliateRank>> RankAffiliatesBySalesAsync(
+        int? campaignId, int limit, CancellationToken cancellationToken)
+    {
+        await using var connection = await OpenAsync(cancellationToken);
+        var command = connection.CreateCommand();
+        command.CommandText = """
+SELECT a.AffiliateId, a.Name, COUNT(s.SaleId),
+SUM(s.GrossRevenueCents - s.DiscountCents - s.RefundCents),
+SUM(s.CommissionCents)
+FROM AffiliateSales s
+JOIN AffiliateCampaigns ac ON ac.AffiliateCampaignId = s.AffiliateCampaignId
+JOIN Affiliates a ON a.AffiliateId = ac.AffiliateId
+WHERE ($campaignId IS NULL OR ac.CampaignId = $campaignId)
+GROUP BY a.AffiliateId, a.Name
+ORDER BY COUNT(s.SaleId) DESC, a.AffiliateId
+LIMIT $limit;
+""";
+        command.Parameters.AddWithValue("$campaignId", campaignId is null ? DBNull.Value : campaignId.Value);
+        command.Parameters.AddWithValue("$limit", Math.Clamp(limit, 1, MaxRows));
+        var rows = await ReadAsync(command, r => (
+            Id: r.GetInt32(0), Name: r.GetString(1), Sales: r.GetInt32(2),
+            Net: Money(r.GetInt64(3)), Commission: Money(r.GetInt64(4))), cancellationToken);
+        return rows.Select((x, i) => new AffiliateRank(
+            i + 1, x.Id, x.Name, x.Sales, x.Net, x.Commission, x.Net - x.Commission)).ToList();
+    }
+
     // For testing: row counts per table (expected 8, 4, 14, 20).
     public async Task<IReadOnlyDictionary<string, int>> GetTableCountsAsync(CancellationToken cancellationToken)
     {

@@ -21,7 +21,9 @@ public sealed class HomeController(IChatbotService chatbot, ILogger<HomeControll
         new("campaign_ranking", "Campaigns ranked by recorded sales count.",
             "Which campaign made the most sales?"),
         new("affiliate_ranking", "Affiliates ranked by net revenue for a campaign or date range, with a result limit.",
-            "Which affiliate generated the most net revenue?")
+            "Which affiliate generated the most net revenue?"),
+        new("affiliate_sales_ranking", "Affiliates ranked by recorded sales count, optionally for one campaign.",
+            "Which affiliate made the most sales?")
     ];
 
     [HttpGet]

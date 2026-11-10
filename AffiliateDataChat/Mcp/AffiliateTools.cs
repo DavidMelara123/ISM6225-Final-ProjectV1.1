@@ -109,4 +109,20 @@ public sealed class AffiliateTools(SqliteAffiliateRepository repository)
             campaignId, from, to, limit, cancellationToken);
         return JsonSerializer.Serialize(rankings, JsonOptions);
     }
+
+    [McpServerTool(Name = "affiliate_sales_ranking"), Description("Rank affiliates by recorded sales count, highest first, optionally filtered by campaign.")]
+    public async Task<string> AffiliateSalesRankingAsync(
+        [Description("Optional numeric campaign ID.")] int? campaignId = null,
+        [Description("Maximum number of affiliates to return, from 1 through 25.")] int limit = 10,
+        CancellationToken cancellationToken = default)
+    {
+        if (campaignId is <= 0)
+            return "campaignId must be greater than zero.";
+        if (limit is < 1 or > MaxResults)
+            return $"limit must be from 1 through {MaxResults}.";
+
+        var rankings = await repository.RankAffiliatesBySalesAsync(
+            campaignId, limit, cancellationToken);
+        return JsonSerializer.Serialize(rankings, JsonOptions);
+    }
 }

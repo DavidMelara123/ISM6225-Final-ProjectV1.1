@@ -84,8 +84,8 @@
                                                             <span class="badge bg-danger ms-1">failed</span>
                                                         }
                                                     </td>
-                                                    <td><code class="args">@call.ArgumentsJson</code></td>
-                                                    <td>@call.ResultSummary</td>
+                                                    <td><span class="evidence-value">@ToolOutputFormatter.Format(call.ArgumentsJson)</span></td>
+                                                    <td><span class="evidence-value">@ToolOutputFormatter.Format(call.ResultSummary)</span></td>
                                                     <td class="text-nowrap">@call.DurationMs ms</td>
                                                 </tr>
                                             }
