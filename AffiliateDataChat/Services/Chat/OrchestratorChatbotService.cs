@@ -25,8 +25,9 @@ public sealed class OrchestratorChatbotService(
     private static readonly TimeSpan DiscoveryCacheTime = TimeSpan.FromMinutes(5);
 
     private bool IsModelConfigured =>
-        string.Equals(configuration["Ai:Provider"], "OpenAI", StringComparison.OrdinalIgnoreCase)
-        && !string.IsNullOrWhiteSpace(configuration["Ai:ApiKey"]);
+        string.Equals(configuration["Ai:Provider"], "Ollama", StringComparison.OrdinalIgnoreCase)
+        || (string.Equals(configuration["Ai:Provider"], "OpenAI", StringComparison.OrdinalIgnoreCase)
+            && !string.IsNullOrWhiteSpace(configuration["Ai:ApiKey"]));
 
     private ChatMode Mode => IsModelConfigured ? ChatMode.Model : ChatMode.Fallback;
 
@@ -34,8 +35,8 @@ public sealed class OrchestratorChatbotService(
 
     public async Task<ChatbotReply> AskAsync(string question, IReadOnlyList<ChatTurn> history, CancellationToken cancellationToken)
     {
-        var answer = await orchestrator.AskAsync(question, cancellationToken);
-        return new ChatbotReply(answer, Mode, ModelName, ToolCalls: []);
+        var result = await orchestrator.AskAsync(question, cancellationToken);
+        return new ChatbotReply(result.Answer, Mode, ModelName, result.ToolCalls);
     }
 
     public async Task<ChatbotStatus> GetStatusAsync(CancellationToken cancellationToken)

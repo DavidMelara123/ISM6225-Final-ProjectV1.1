@@ -47,6 +47,10 @@ public sealed record ChatbotReply(
     string? ModelName,
     IReadOnlyList<ToolInvocation> ToolCalls);
 
+public sealed record OrchestrationResult(
+    string Answer,
+    IReadOnlyList<ToolInvocation> ToolCalls);
+
 /// <summary>Current state of the chatbot, shown on the chat page and the About page.</summary>
 /// <param name="Mode">The mode the next answer is expected to use.</param>
 /// <param name="ModelName">Configured model, if any.</param>
