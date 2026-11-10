@@ -11,14 +11,16 @@ public sealed class HomeController(IChatbotService chatbot, ILogger<HomeControll
     [
         new("list_campaigns", "Available campaigns with dates, participation and sales counts.",
             "Which campaigns are available?"),
-        new("lookup_affiliate", "Exact lookup of an affiliate by ID.", "Show me affiliate 104."),
+        new("affiliate_lookup", "Exact lookup of an affiliate by ID.", "Show me affiliate 104."),
         new("get_affiliate_campaign_history", "Sales and commission performance for an affiliate across campaigns.",
             "Show affiliate 104's campaign history."),
-        new("find_affiliates_without_sales", "Campaign participants with no recorded sales, optionally for one campaign.",
+        new("campaign_participants_without_sales", "Campaign participants with no recorded sales, optionally for one campaign.",
             "Which affiliates participated in the summer campaign but made no sales?"),
-        new("summarize_campaign", "Campaign revenue, commission expense and sales counts.",
+        new("campaign_summary", "Campaign revenue, commission expense and sales counts.",
             "How much revenue and commission expense did campaign 3 generate?"),
-        new("rank_affiliates", "Affiliates ranked by net revenue for a campaign or date range, with a result limit.",
+        new("campaign_ranking", "Campaigns ranked by recorded sales count.",
+            "Which campaign made the most sales?"),
+        new("affiliate_ranking", "Affiliates ranked by net revenue for a campaign or date range, with a result limit.",
             "Which affiliate generated the most net revenue?")
     ];
 
